@@ -87,3 +87,10 @@ curl http://127.0.0.1:8080/v1/chat/completions \
 `make clean` deletes everything managed by this repo under `LLAMA_CPP_DIR` and `MODEL_DIR`.
 
 If the service crashes or the Pi reboots, systemd restarts it automatically.
+
+
+## Project Status
+
+This project exists because I wanted a simple, reproducible way to run a local LLM server on a Raspberry Pi for my own home lab.
+
+It is shared publicly in case others find it useful, but it is not intended to be a fully supported product.
