@@ -40,7 +40,7 @@ Important values:
 LLAMA_USER=pi
 LLAMA_CPP_DIR=/opt/llama.cpp
 MODEL_DIR=/opt/llm-models
-MODEL_URL=https://huggingface.co/Qwen/Qwen3-1.7B-GGUF/resolve/main/Qwen3-1.7B-Q4_K_M.gguf
+MODEL_URL=https://huggingface.co/lm-kit/qwen-3-1.7b-instruct-gguf/resolve/main/Qwen3-1.7B-Q4_K_M.gguf
 MODEL_FILE=qwen3-1.7b-q4_k_m.gguf
 HOST=0.0.0.0
 PORT=8080
@@ -49,10 +49,8 @@ THREADS=4
 EXTRA_ARGS=
 ```
 
-Recommended model for transaction classification:
-
-- `Qwen3-1.7B-Instruct GGUF Q4_K_M` for speed
-- `Qwen3-1.7B-Instruct GGUF Q8_0` for better quality if performance is acceptable
+Model used:
+https://huggingface.co/lm-kit/qwen-3-1.7b-instruct-gguf
 
 ## Commands
 
