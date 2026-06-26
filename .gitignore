@@ -1,0 +1,23 @@
+# downloaded models
+models/*
+!models/.gitkeep
+
+# local config
+config.local.env
+.env
+
+# build artifacts
+llama.cpp/
+build/
+*.o
+*.so
+*.a
+
+# logs / runtime
+*.log
+*.pid
+
+# editor / OS
+.DS_Store
+.vscode/
+.idea/

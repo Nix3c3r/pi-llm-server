@@ -1,0 +1,22 @@
+[Unit]
+Description=llama.cpp OpenAI-compatible server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=__LLAMA_USER__
+WorkingDirectory=__LLAMA_CPP_DIR__
+ExecStart=__LLAMA_CPP_DIR__/build/bin/llama-server \
+  -m __MODEL_PATH__ \
+  --host __HOST__ \
+  --port __PORT__ \
+  -c __CONTEXT_SIZE__ \
+  -t __THREADS__ \
+  __EXTRA_ARGS__
+Restart=always
+RestartSec=5
+Nice=5
+
+[Install]
+WantedBy=multi-user.target
