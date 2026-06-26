@@ -1,4 +1,4 @@
-# pi-llm-server
+# llm-pi-server
 
 Minimal Raspberry Pi 5 LLM server repo for hosting a local GGUF model with `llama.cpp`.
 
