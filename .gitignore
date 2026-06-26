@@ -1,7 +1,3 @@
-# downloaded models
-models/*
-!models/.gitkeep
-
 # local config
 config.env
 
