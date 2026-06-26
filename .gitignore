@@ -3,8 +3,7 @@ models/*
 !models/.gitkeep
 
 # local config
-config.local.env
-.env
+config.example.env
 
 # build artifacts
 llama.cpp/

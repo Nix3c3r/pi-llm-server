@@ -17,6 +17,7 @@ This repo installs, configures, and runs an OpenAI-compatible local LLM endpoint
 ```bash
 git clone <your-repo-url> pi-llm-server
 cd pi-llm-server
+cp config.example.env config.env
 nano config.env
 make install
 make status
@@ -31,7 +32,7 @@ http://<pi-ip>:8080/v1/chat/completions
 
 ## Configuration
 
-Edit `config.env` before installing.
+Edit `config.env` before installing. If it does not exist, take a copy from `config.example.env`
 
 Important values:
 
