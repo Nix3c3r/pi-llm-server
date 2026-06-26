@@ -40,8 +40,8 @@ Important values:
 LLAMA_USER=pi
 LLAMA_CPP_DIR=/opt/llama.cpp
 MODEL_DIR=/opt/llm-models
-MODEL_URL=https://huggingface.co/lm-kit/qwen-3-1.7b-instruct-gguf/resolve/main/Qwen3-1.7B-Q4_K_M.gguf
-MODEL_FILE=qwen3-1.7b-q4_k_m.gguf
+MODEL_URL=hf://lm-kit/qwen-3-1.7b-instruct-gguf/Qwen3-1.7B-Q4_K_M.gguf
+MODEL_FILE=Qwen3-1.7B-Q4_K_M.gguf
 HOST=0.0.0.0
 PORT=8080
 CONTEXT_SIZE=2048
