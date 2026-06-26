@@ -32,6 +32,9 @@ apt-get install -y git cmake build-essential curl ca-certificates libcurl4-opens
 mkdir -p "$MODEL_DIR"
 chown -R "$LLAMA_USER:$LLAMA_USER" "$MODEL_DIR"
 
+
+## BUILD LLAMA.CPP
+
 if [[ ! -d "$LLAMA_CPP_DIR/.git" ]]; then
   git clone https://github.com/ggerganov/llama.cpp "$LLAMA_CPP_DIR"
 else
@@ -44,14 +47,55 @@ cmake -S "$LLAMA_CPP_DIR" -B "$LLAMA_CPP_DIR/build" \
   -DLLAMA_CURL=ON
 cmake --build "$LLAMA_CPP_DIR/build" --config Release -j"$(nproc)"
 
+
+## DONWLOAD MODEL
+
 MODEL_PATH="$MODEL_DIR/$MODEL_FILE"
+
+if ! command -v hf >/dev/null 2>&1; then
+  echo "Installing Hugging Face CLI..."
+  curl -LsSf https://hf.co/cli/install.sh | bash
+  export PATH="$HOME/.local/bin:$PATH"
+fi
+
+if ! command -v hf >/dev/null 2>&1; then
+  echo "ERROR: hf CLI installation failed or hf is not in PATH" >&2
+  exit 1
+fi
+
 if [[ ! -f "$MODEL_PATH" ]]; then
   echo "Downloading model to $MODEL_PATH"
-  curl -L --fail --continue-at - -o "$MODEL_PATH" "$MODEL_URL"
+
+  # MODEL_URL should be like:
+  # hf://lm-kit/qwen-3-1.7b-instruct-gguf/Qwen3-1.7B-Q4_K_M.gguf
+
+  HF_PATH="${MODEL_URL#hf://}"
+  HF_REPO="${HF_PATH%/*}"
+  HF_FILE="${HF_PATH##*/}"
+
+  hf download "$HF_REPO" "$HF_FILE" \
+    --local-dir "$MODEL_DIR"
 else
   echo "Model already exists: $MODEL_PATH"
 fi
+
+if [[ ! -f "$MODEL_PATH" ]]; then
+  echo "ERROR: Expected model file not found: $MODEL_PATH" >&2
+  exit 1
+fi
+
+echo "Verifying GGUF model..."
+if [[ "$(head -c 4 "$MODEL_PATH")" != "GGUF" ]]; then
+  echo "ERROR: $MODEL_PATH is not a valid GGUF file" >&2
+  echo "First few lines:"
+  head -n 5 "$MODEL_PATH" || true
+  exit 1
+fi
+
 chown "$LLAMA_USER:$LLAMA_USER" "$MODEL_PATH"
+
+
+### INSTALL SYSTEMD SERVICE
 
 install -m 0644 systemd/llama-server.service.template /etc/systemd/system/llama-server.service
 
